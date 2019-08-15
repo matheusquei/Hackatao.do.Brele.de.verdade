@@ -1,0 +1,75 @@
+import time
+import random
+check = False
+conteudo = ""
+tudo: str == "not okay"
+achou: int = 0
+adiMais = "S"
+proMais = "S"
+    #Criando um while para que o usuário possa utilizar ate quando quiser
+while check == False:
+    #Dando uma escolha entre 3 tarefas
+
+    Escolha = int(input("Você quer \n 1- adicionar \n 2- procurar \n 3- apagar um registro \n"))
+
+    #If para achar qual tarefa o usuário quer
+    if Escolha == 1:
+        print("Abrindo sistema para ADICIONAR um registro...")
+        time.sleep(2)
+
+        while adiMais == "S":
+            arquivo = open('Registros.txt', 'r')
+            conteudo = arquivo.readlines()
+            adicionar = input("Insira o nome do novo registro \n (NOME)\n").upper()
+            codigo = str(random.randint(30000, 100000))
+
+            for linha in arquivo:
+                while linha.find(codigo) > -1:
+                    codigo = str(random.randint(30000, 100000))
+
+            conteudo.append(adicionar)
+            conteudo.append(" - ")
+            conteudo.append(codigo)
+            conteudo.append("\n")
+            arquivo = open('Registros.txt', 'w')
+            arquivo.writelines(conteudo)
+            print("Tarefa concluida.")
+            arquivo.close()
+            adiMais = input("Você precisa adicionar mais algum regitro? \n (S/N) \n").upper()
+
+    elif Escolha == 2:
+        print("Abrindo sistema para PROCURAR um registro...")
+        time.sleep(2)
+        while proMais == "S":
+            procurando = input("Insira o nome ou código para procurar o registro: \n (Uma pesquisa por vez) \n").upper()
+            with open("Registros.txt", "r") as arq:
+                for linha in arq:
+                    if linha.find(procurando) > -1:
+                        print(linha)
+                        achou += 1
+            print("Tarefa concluida.\n")
+            if achou <= 0:
+                print("Não foi encontrado nenhum registro com esse nome ou código.\n")
+            elif achou == 1:
+                print("Foi encontrado", achou, " registro.\n")
+            else:
+                print("Foram encontrados", achou, " registros.\n")
+            achou = 0
+            proMais = input("Você precisa procurar mais algum registro? \n (S/N) \n").upper()
+
+    elif Escolha == 3:
+        print("Tarefa ainda não adicionada.")
+        time.sleep(0)
+
+    else:
+        Escolha = int(input("Opção Inválida, Escolha corretamente:\n1- Adicionar \n 2- Procurar \n 3- Apagar"))
+    algo = input("Precisa fazer mais alguma coisa? \n (S/N) \n").upper()
+
+    if algo == "S":
+        check = False
+
+    else:
+        check = True
+        print("DESENVOLVIDO POR ERIC KENJI - Uso livre")
+        print("Até a próxima.")
+
